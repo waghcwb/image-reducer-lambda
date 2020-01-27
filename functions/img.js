@@ -4,6 +4,7 @@ exports.handler = (event, context, callback) => {
     const allowedMethods = ['GET']
 
     consola.log(event)
+    console.log('test log')
 
     if (!allowedMethods.includes(event.httpMethod)) {
         return {
@@ -12,8 +13,10 @@ exports.handler = (event, context, callback) => {
         }
     }
 
+    const { width, base64 } = event.path.split('/').slice(4)
+
     callback(null, {
         statusCode: 200,
-        body: 'No worries, all is working fine!\n' + '<pre><code><small>' + JSON.stringify(event) + '</pre></code></small>'
+        body: 'No worries, all is working fine!\n' + `width: ${width}\n base64: ${base64}`
     })
 }
