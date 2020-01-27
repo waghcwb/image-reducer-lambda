@@ -16,7 +16,7 @@ exports.handler = async (event, context, callback) => {
     }
 
     const [ width, base64 ] = event.path.split('/').slice(4)
-    const base64Buffer = new Buffer(base64, 'base64')
+    const base64Buffer = Buffer.from(base64, 'base64')
     const img = base64Buffer.toString('ascii')
 
     const { body } = await request(img)
