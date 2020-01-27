@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install --arch=x64 --platform=linux --target=10.15.0 sharp",
+    "preinstall": "npm cache clean --force",
+    "build": "echo THE BUILD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
