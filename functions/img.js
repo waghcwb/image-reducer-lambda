@@ -5,7 +5,7 @@ exports.handler = (event, context, callback) => {
 
     consola.log(event)
 
-    if (allowedMethods.includes(event.httpMethod)) {
+    if (!allowedMethods.includes(event.httpMethod)) {
         return {
             statusCode: 405,
             body: 'go away!'
@@ -14,6 +14,6 @@ exports.handler = (event, context, callback) => {
 
     callback(null, {
         statusCode: 200,
-        body: 'No worries, all is working fine!'
+        body: 'No worries, all is working fine!\n' + '<pre><code><small>' + JSON.stringify(event) + '</pre></code></small>'
     })
 }
