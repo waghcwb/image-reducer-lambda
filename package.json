@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "rm -rf node_modules/sharp && npm cache clean --force",
-    "postinstall": "ls -lha",
+    "postinstall": "ls node_modules/sharp/build/Release -lha",
     "build": "echo THE BUILD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
