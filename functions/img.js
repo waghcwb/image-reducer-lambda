@@ -1,10 +1,8 @@
-const consola = require('consola')
-
 exports.handler = (event, context, callback) => {
     const allowedMethods = ['GET']
 
-    consola.log(event)
     console.log('test log')
+    console.warn('test log')
 
     if (!allowedMethods.includes(event.httpMethod)) {
         return {
@@ -13,10 +11,11 @@ exports.handler = (event, context, callback) => {
         }
     }
 
-    const { width, base64 } = event.path.split('/').slice(4)
+    const [ width, base64 ] = event.path.split('/').slice(4)
+    const base64Buffer = new Buffer(base64, 'base64')
 
     callback(null, {
         statusCode: 200,
-        body: 'No worries, all is working fine!\n' + `width: ${width}\n base64: ${base64}`
+        body: 'No worries, all is working fine!\n' + `width: ${width}\n base64: ${base64}` + `\nbase64Buffer: ${base64Buffer}`
     })
 }

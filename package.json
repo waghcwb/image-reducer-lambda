@@ -11,6 +11,5 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "consola": "^2.11.3"
   }
 }
