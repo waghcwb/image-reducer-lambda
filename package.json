@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm cache clean --force",
+    "preinstall": "rm -rf node_modules/sharp && npm cache clean --force",
     "build": "echo THE BUILD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
