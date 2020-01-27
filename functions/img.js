@@ -21,11 +21,12 @@ exports.handler = async (event, context, callback) => {
     const { body, statusCode } = await request(img)
 
     callback(null, {
-        statusCode: statusCode,
+        body: body.toString('base64'),
+        isBase64Encoded: true,
+        statusCode,
         headers: {
             'content-type': 'image/png',
-            'Content-Length': body.length
-        },
-        body: Buffer.from(body)
+            'content-length': body.length
+        }
     })
 }
