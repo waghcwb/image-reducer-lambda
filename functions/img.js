@@ -21,16 +21,16 @@ exports.handler = async (event, context, callback) => {
 
     const { body } = await request(img)
 
-    const resize = await sharp(body)
-      .resize({
-        width: Number(width),
-        fit: 'inside'
-      })
-      .png()
-      .toBuffer()
+    // const resize = await sharp(body)
+    //   .resize({
+    //     width: Number(width),
+    //     fit: 'inside'
+    //   })
+    //   .png()
+    //   .toBuffer()
 
     callback(null, {
-        body: resize.toString('base64'),
+        body: body.toString('base64'),
         isBase64Encoded: true,
         statusCode: 200,
         headers: {
