@@ -1,4 +1,5 @@
 const debug = require('debug')('imagereducer:app')
+const sharp = require('sharp')
 const _request = require('request').defaults({ encoding: null })
 const { promisify } = require('util')
 
@@ -18,12 +19,20 @@ exports.handler = async (event, context, callback) => {
     const base64Buffer = new Buffer(base64, 'base64')
     const img = base64Buffer.toString('ascii')
 
-    const { body, statusCode } = await request(img)
+    const { body } = await request(img)
+
+    const resize = await sharp(body)
+      .resize({
+        width: Number(width),
+        fit: 'inside'
+      })
+      .png()
+      .toBuffer()
 
     callback(null, {
-        body: body.toString('base64'),
+        body: resize.toString('base64'),
         isBase64Encoded: true,
-        statusCode,
+        statusCode: 200,
         headers: {
             'content-type': 'image/png',
             'content-length': body.length
