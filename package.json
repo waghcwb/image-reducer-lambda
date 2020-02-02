@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "node functions/resize",
     "build": "echo THE BUILD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
