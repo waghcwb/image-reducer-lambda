@@ -16,7 +16,7 @@ exports.handler = async (event, context, callback) => {
     const height = Jimp.AUTO
     const url = base64Buffer.toString('ascii')
     const image = await Jimp.read({ url })
-    await image.resize(width, height)
+    await image.resize(Number(width), height)
     await image.quality(40)
 
     image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
