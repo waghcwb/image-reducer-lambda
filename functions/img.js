@@ -17,11 +17,12 @@ exports.handler = async (event, context, callback) => {
     const url = base64Buffer.toString('ascii')
     const image = await Jimp.read({ url })
     await image.quality(Number(quality))
+    await image.resize(Number(width), height)
     const buffer = await image.getBufferAsync(Jimp.MIME_PNG)
 
-    if (image._exif.imageSize.width > width) {
-        await image.resize(Number(width), height)
-    }
+    // if (image._exif.imageSize.width > width) {
+    //     await image.resize(Number(width), height)
+    // }
 
     callback(null, {
         body: buffer.toString('base64'),
