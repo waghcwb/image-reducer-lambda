@@ -11,13 +11,13 @@ exports.handler = async (event, context, callback) => {
         }
     }
 
-    const [ width, base64 ] = event.path.split('/').slice(4)
+    const [ width, quality = 40, base64 ] = event.path.split('/').slice(4)
     const base64Buffer = Buffer.from(base64, 'base64')
     const height = Jimp.AUTO
     const url = base64Buffer.toString('ascii')
     const image = await Jimp.read({ url })
     await image.resize(Number(width), height)
-    await image.quality(40)
+    await image.quality(Number(quality))
 
     image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
         if (err) {
