@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "rm -rf node_modules/sharp && npm cache clean --force",
-    "postinstall": "npm rebuild --verbose sharp",
     "build": "echo THE BUILD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,8 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "^4.1.1",
-    "request": "^2.88.0",
-    "sharp": "^0.24.0"
+    "debug": "^4.1.1"
+  },
+  "devDependencies": {
+    "jimp": "^0.9.3"
   }
 }

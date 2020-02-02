@@ -1,9 +1,5 @@
 const debug = require('debug')('imagereducer:app')
-const sharp = require('sharp')
-const _request = require('request').defaults({ encoding: null })
-const { promisify } = require('util')
-
-const request = promisify(_request)
+const Jimp = require('jimp')
 
 exports.handler = async (event, context, callback) => {
     const allowedMethods = ['GET']
@@ -17,25 +13,25 @@ exports.handler = async (event, context, callback) => {
 
     const [ width, base64 ] = event.path.split('/').slice(4)
     const base64Buffer = Buffer.from(base64, 'base64')
-    const img = base64Buffer.toString('ascii')
+    const height = Jimp.AUTO
+    const url = base64Buffer.toString('ascii')
+    const image = await Jimp.read({ url })
+    await image.resize(width, height)
+    await image.quality(40)
 
-    const { body } = await request(img)
-
-    // const resize = await sharp(body)
-    //   .resize({
-    //     width: Number(width),
-    //     fit: 'inside'
-    //   })
-    //   .png()
-    //   .toBuffer()
-
-    callback(null, {
-        body: body.toString('base64'),
-        isBase64Encoded: true,
-        statusCode: 200,
-        headers: {
-            'content-type': 'image/png',
-            'content-length': body.length
+    image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+        if (err) {
+            throw err
         }
+
+        callback(null, {
+            body: buffer.toString('base64'),
+            isBase64Encoded: true,
+            statusCode: 200,
+            headers: {
+                'content-type': Jimp.MIME_PNG,
+                'content-length': buffer.length
+            }
+        })
     })
 }
